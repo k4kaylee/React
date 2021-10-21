@@ -1,14 +1,15 @@
-import React from "react";
-import MyButton from "./components/MyButton";
-import Clock from "./components/Clock";
-import MyButtonClass from "./components/MyButtonClass";
+import React, { useState } from "react";
+import NavBar from "./components/NavBar";
+import AppRoutes from "./components/AppRoutes";
+import {BrowserRouter} from "react-router-dom"
 
-const buttonArray = ['Primary', 'Secondary', 'Success', 'Danger', 'Warning']
 const App = () => {
-  return (
-    <>
-    <MyButton/>
-    </>
+  return(
+    <BrowserRouter>
+      <NavBar />
+      <AppRoutes />
+    </BrowserRouter>
+
   )
 }
 
