@@ -15,7 +15,6 @@ const Devices = () => {
         if(e.target.value =="") {setPhones(devices)
         return
     }
-        console.log(e.target.value);
         setPhones(devices.filter((phone) => phone.brand == e.target.value))
     };
   return (

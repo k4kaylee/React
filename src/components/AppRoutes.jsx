@@ -2,6 +2,7 @@ import {React, useState} from 'react'
 import {Route, Switch} from 'react-router-dom'
 import Users  from '../pages/Users'
 import Devices  from '../pages/Devices'
+import Home from '../pages/Home'
 import Loader from 'react-loader-spinner'
 
 const AppRoutes = () => {
@@ -17,6 +18,7 @@ const AppRoutes = () => {
     <Switch>
       <Route path='/users' component={Users}/>
       <Route path='/devices' component={Devices}/>
+      <Route path='/' component={Home}/>
     </Switch>
   )
 }
