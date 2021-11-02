@@ -62,6 +62,7 @@ const Users = () => {
     <div className="App">
 
       <div className="container">
+        <h3>Users</h3>
         <MyModal visible={showModal} setVisible={setshowModal}>
           {
                  <>

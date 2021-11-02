@@ -14,7 +14,7 @@ const Home = () => {
         id="name"
         type="text"
         className="required"
-        maxlength = "15ы"
+        maxLength = "15"
         placeholder="Name"></input>
       </div>
     </li>
@@ -26,7 +26,7 @@ const Home = () => {
           id="surname"
           type="text"
           className="validate"
-          maxlength = "20"
+          maxLength = "20"
           placeholder="Surname"></input>
         </div>
       </li>
@@ -38,7 +38,7 @@ const Home = () => {
         id="phone"
         type="tel"
         className="validate"
-        maxlength = "10"
+        maxLength = "10"
         placeholder="Phone number"></input>
       </div>
       </li>
@@ -61,7 +61,7 @@ const Home = () => {
               id="email"
               type="email"
               className="validate"
-              maxlength="20"
+              maxLength="20"
               pattern = "/@/"
               placeholder="E-mail"></input>
             </div>
@@ -74,11 +74,30 @@ const Home = () => {
                 id="password"
                 type="password"
                 className="validate"
-                minlength="8"
+                minLength="8"
                 placeholder="Password"></input>
               </div>
               </li>
+
+              <li>
+              <form action="#">
+                <div className="file-field input-field">
+                <div className="btn">
+                  <span>File</span>
+                     <input type="file" multiple></input>
+                  </div>
+                  <div className="file-path-wrapper">
+                    <input className="file-path validate" type="text" placeholder="Upload some photos"></input>
+                  </div>
+                </div>
+              </form>
+              </li>
       </ul>
+      <div className="col s4">
+        <a className="waves-effect waves-light btn">
+          Registrate
+        </a>
+      </div>
   </div>
   </>
 )
