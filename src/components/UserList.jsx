@@ -34,6 +34,7 @@ const userSearch = getSearch();
           <tr>
               <th>Name</th>
               <th>Phone</th>
+              <th>E-mail</th>
               <th>Delete</th>
           </tr>
         </thead>
@@ -43,6 +44,7 @@ const userSearch = getSearch();
          <tr key={user.id}>
             <td>{user.name}</td>
             <td>{user.phone}</td>
+            <td>{user.email}</td>
             <i className="material-icons"
             onClick={()=>props.deleteUser(user.id)}>delete</i>
           </tr>

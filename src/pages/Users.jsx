@@ -1,37 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import UserList from "../components/UserList";
 import MyModal from "../components/MyModal/MyModal"
+import axios from 'axios';
 
 const Users = () => {
+const [loading, setLoading] = useState(false);
+
+  const fetchUsers = async () => {
+    const users = await axios.get('https://jsonplaceholder.typicode.com/users');
+    setUsers(users.data);
+  }
+
+useEffect(()=>{
+  fetchUsers();
+},[])
+
   const [showFormUser, setShowFormUser] = useState(false);
   const [users, setUsers] = useState([
-    {
-      id: 1,
-      name: 'John',
-      phone: '7788'
-    },
-    {
-      id: 2,
-      name: 'Thanos',
-      phone: '50%'
-    },
-    {
-      id: 3,
-      name: 'Boris',
-      phone: '5467'
-    },
+
   ]);
   const [user, setUser] = useState(
     {
       name: '',
       phone: '',
+      email: '',
     });
 
   const onChange = (e) => {
     if (e.target.id == "name") {
       setUser({ ...user, name: e.target.value });
-    } else {
+    } else if(e.target.id == "phone"){
       setUser({ ...user, phone: e.target.value });
+    } else{
+      setUser({ ...user, email: e.target.value });
     }
   }
 
@@ -42,6 +43,7 @@ const Users = () => {
     setUser({
       name: '',
       phone: '',
+      email: '',
     });
   }
 
@@ -50,7 +52,7 @@ const Users = () => {
     if (confirm == true) setUsers(users.filter((user) => user.id !== id)) //для проверки на удаление
   };
   const clear = () => {
-    setUser({ name: '', phone: '' })
+    setUser({ name: '', phone: '', email: '', })
   }
   console.log(user);
   const [showModal, setshowModal] = useState(false)
@@ -63,6 +65,7 @@ const Users = () => {
 
       <div className="container">
         <h3>Users</h3>
+
         <MyModal visible={showModal} setVisible={setshowModal}>
           {
                  <>
@@ -76,8 +79,6 @@ const Users = () => {
                      placeholder="Enter Name"
                      onChange={onChange}
                    />
-                   <a className="waves-effect waves-light btn m-1"
-                     onClick={() => addUser()}>Add</a>
                  </div>
                  <div className="input-field col s6">
                    <i className="material-icons prefix">phone</i>
@@ -89,9 +90,23 @@ const Users = () => {
                      placeholder="Enter Phone"
                      onChange={onChange}
                    />
-                   <a className="waves-effect waves-light right btn m-1"
-                     onClick={() => clear()}>Clear</a>
                  </div>
+
+                 <div className="input-field col s6">
+                   <i className="material-icons prefix">email</i>
+                   <input
+                     id="email"
+                     type="email"
+                     value={user.email}
+                     className="validate"
+                     placeholder="Enter E-mail"
+                     onChange={onChange}
+                     />
+                     </div>
+                     <a className="waves-effect waves-light btn m-1"
+                       onClick={() => addUser()}>Add</a>
+                     <a className="waves-effect waves-light right btn m-1"
+                       onClick={() => clear()}>Clear</a>
                </>
           }
         </MyModal>
@@ -107,7 +122,17 @@ const Users = () => {
 
           </div>
         </div>
+        {loading ? (
+          <loader
+          className="center"
+          type="Puff"
+          color="#ee6e73"
+          heigth={100}
+          width={100}
+          />
+        ) : (
         <UserList search deleteUser={removeUser}>{users}</UserList>
+      )}
       </div>
     </div>
   );
