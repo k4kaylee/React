@@ -20,8 +20,28 @@ code {
     transform: scaleX(1) scaleY(1);
 }
 
-.open-overlay{
-  z-index: 1002;
-  display: block;
-  opacity: 0.8;
+.open-overlay {
+    z-index: 1002;
+    display: block;
+    opacity: 0.8;
+}
+.row .col.m6 {
+  width: 100%;
+  margin-left: auto;
+  left: auto;
+  right: auto;
+}
+
+.row .col.m6 : hover {
+    cursor: pointer;
+}
+
+.card .card-action {
+    background-color: inherit;
+    border-top: 1px
+    solid rgba(160,160,160,0.2);
+    position: relative;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
 }
