@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PostsList from "../components/PostsList";
+import ReactPaginate from 'react-paginate';
 
 import axios from "axios";
 import Loader from "react-loader-spinner";
@@ -7,16 +8,23 @@ import Loader from "react-loader-spinner";
 const Posts = () => {
   const delay = 1000;
   const [loading, setLoading] = useState(true);
-
+  const [page, setPage] = useState(1);
+  const limit = 10;
+  const pageCount = 100/limit;
 
   const fetchPosts = async () => {
-    const posts = await axios.get("https://jsonplaceholder.typicode.com/posts");
+    const posts = await axios.get("https://jsonplaceholder.typicode.com/posts",{
+      params:{
+        _limit: 10,
+        _page: page
+      }
+    });
     setPosts(posts.data);
     setLoading(false);
   };
   useEffect(() => {
     fetchPosts();
-  }, []);
+  }, [page]);
 
   const [posts, setPosts] = useState(null);
   const [post, setPost] = useState({
@@ -34,6 +42,12 @@ const Posts = () => {
     const confirm = window.confirm("Реально удалить?")
     if (confirm == true) setPosts(posts.filter((post) => post.id !== id)) //для проверки на удаление
   };
+
+  const pageChange = (page)=>{
+      console.log(page);
+      setPage(page.selected+1)
+
+    }
 
   const [showModal, setshowModal] = useState(false);
     const [showPostModal, setshowPostModal] = useState(false);
@@ -69,7 +83,16 @@ const Posts = () => {
               {posts}
             </PostsList>
           )}
-        </div>
+      <ReactPaginate className="pagination"
+   breakLabel="..."
+   nextLabel=">"
+   onPageChange={pageChange}
+   pageRangeDisplayed={5}
+   pageCount={10}
+   onChange={pageChange}
+   previousLabel="< previous"
+ />
+          </div>
       </div>
     </>
   );

@@ -27,7 +27,7 @@ const {isAuth, setIsAuth} = useContext(AuthContext);
         <Route path='/devices' component={Devices}/>
         <Route path='/posts' component={Posts}/>
         <Route path='/home' component={Home}/>
-        <Redirect to="/posts"/>
+        <Redirect to="/home"/>
       </Switch>
       :
       <Switch>
