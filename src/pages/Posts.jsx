@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import PostsList from "../components/PostsList";
 import ReactPaginate from 'react-paginate';
 
@@ -7,36 +7,44 @@ import Loader from "react-loader-spinner";
 
 const Posts = () => {
   const delay = 1000;
+  const trigger = useRef(null);
+  const observer = useRef(null);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const limit = 10;
-  const pageCount = 100/limit;
-
-  const fetchPosts = async () => {
-    const posts = await axios.get("https://jsonplaceholder.typicode.com/posts",{
-      params:{
-        _limit: 10,
-        _page: page
-      }
-    });
-    setPosts(posts.data);
-    setLoading(false);
-  };
-  useEffect(() => {
-    fetchPosts();
-  }, [page]);
-
-  const [posts, setPosts] = useState(null);
+  const [posts, setPosts] = useState([]);
   const [post, setPost] = useState({
     userId: "",
     id: "",
     title: "",
     body: "",
   });
+  const limit = 10;
+  const pageCount = 100/limit;
 
+  const fetchPosts = async () => {
+    const postsFetched = await axios.get("https://jsonplaceholder.typicode.com/posts",{
+      params:{
+        _limit: 10,
+        _page: page
+      }
+    });
+    setPosts([...posts,...postsFetched.data]);
+    setLoading(false);
+  };
+  useEffect(() => {
 
+    fetchPosts();
+  }, [page]);
 
-
+  useEffect(() => {
+    const callback = function(entries, observer) {
+        if(entries[0].isIntersecting){
+          setPage(page+1)
+        }
+    };
+    observer.current = new IntersectionObserver(callback);
+    observer.current.observe(trigger.current);
+  }, [])
 
   const removePost = (id) => {
     const confirm = window.confirm("Реально удалить?")
@@ -83,7 +91,8 @@ const Posts = () => {
               {posts}
             </PostsList>
           )}
-      <ReactPaginate className="pagination"
+          <div ref={trigger} className="red accent-4">I'm a trigger</div>
+      <ReactPaginate className="pagination selected"
    breakLabel="..."
    nextLabel=">"
    onPageChange={pageChange}
