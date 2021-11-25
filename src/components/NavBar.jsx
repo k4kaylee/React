@@ -39,12 +39,11 @@ const NavBar = () => {
       </ul>
     </div>
     <div class="switch">
-    <p>Change color theme</p>
        <label>
-         Off
+         Dark
          <input type="checkbox"></input>
          <span class="lever" onClick={themeToggler}></span>
-         On
+         Light
        </label>
      </div>
   </nav>
