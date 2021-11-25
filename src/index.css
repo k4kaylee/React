@@ -46,6 +46,10 @@ code {
     justify-content: space-between;
 }
 
-.material-icons: {
+.material-icons {
   cursor: pointer !important;
+}
+
+.switch label {
+  margin: 0px;
 }

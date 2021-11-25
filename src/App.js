@@ -4,16 +4,22 @@ import AppRoutes from "./components/AppRoutes";
 import {BrowserRouter} from "react-router-dom"
 import AuthContext from "./context";
 
+
+
+
 const App = () => {
   const [isAuth, setIsAuth] = useState(false);
+
 
   useEffect (() => {
     if(localStorage.getItem('auth')){
       setIsAuth(true)
     }
   }, [])
-  
+
   return(
+
+
     <AuthContext.Provider
     value = {{
       isAuth,
@@ -23,7 +29,7 @@ const App = () => {
         <NavBar />
         <AppRoutes />
       </BrowserRouter>
-    </AuthContext.Provider>
+      </AuthContext.Provider>
   )
 }
 
